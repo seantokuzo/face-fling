@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="resources/FaceFling_logo_1024x.png" width="500" alt="Face-Fling Logo">
+  <img src="resources/FaceFling_logo_1024.png" width="500" alt="Face-Fling Logo">
 </p>
 <p align="center">
   <em>Your family photos, finally findable.</em>
