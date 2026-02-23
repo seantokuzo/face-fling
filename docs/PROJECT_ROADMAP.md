@@ -119,39 +119,43 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed component design.
 
 ## 📅 Development Phases
 
-### Phase 0: Project Setup (Week 1)
+### Phase 0: Project Setup (Week 1) ✅
 
-- [x] Define requirements and roadmap ← **YOU ARE HERE**
-- [ ] Set up development environment
-- [ ] Configure CMake build system
-- [ ] Set up Qt project structure
-- [ ] Download and configure dlib models
-- [ ] Create SQLite schema
+- [x] Define requirements and roadmap
+- [x] Set up development environment
+- [x] Configure CMake build system
+- [x] Set up Qt project structure
+- [x] Download and configure dlib models
+- [x] Create SQLite schema
 
-### Phase 1: Core Engine (Weeks 2-3)
+### Phase 1: Core Engine (Weeks 2-3) ✅
 
-- [ ] Implement file scanner (recursive directory walk)
-- [ ] Implement image loader (multi-format support)
-- [ ] Integrate dlib face detection
-- [ ] Integrate dlib face embedding generation
-- [ ] Implement SQLite persistence layer
-- [ ] Implement face clustering algorithm
+- [x] Implement file scanner (recursive directory walk)
+- [x] Implement image loader (multi-format support)
+- [x] Integrate dlib face detection
+- [x] Integrate dlib face embedding generation
+- [x] Implement SQLite persistence layer
+- [x] Implement face clustering algorithm
 
-### Phase 2: Basic UI (Week 4)
+### Phase 2: Basic UI (Week 4) ✅
 
-- [ ] Main window layout
-- [ ] Folder selection dialog
-- [ ] Progress bar during scan
-- [ ] Face grid view (unclustered)
-- [ ] Person list sidebar
+- [x] Main window layout (scaffolding complete)
+- [x] Folder selection dialog
+- [x] Progress bar during scan
+- [x] Face grid view (display faces with thumbnails)
+- [x] Person list sidebar (functional display)
+- [x] Connect UI to core engine
+- [x] FaceThumbnailWidget component
+- [x] Background processing with QtConcurrent
+- [x] Thumbnail generation for face crops
 
-### Phase 3: Clustering UI (Week 5)
+### Phase 3: Clustering UI (Week 5) ← **CURRENT PHASE**
 
-- [ ] Clustered face groups display
-- [ ] Name assignment dialog
+- [x] Clustered face groups display
+- [x] Name assignment dialog (double-click to rename)
 - [ ] Merge clusters (drag & drop or select + merge)
 - [ ] Split cluster (select faces to move)
-- [ ] Cluster thumbnail generation
+- [x] Cluster thumbnail generation
 
 ### Phase 4: Export & Polish (Week 6)
 
@@ -363,15 +367,17 @@ Key points:
 
 ## 🔄 Status
 
-| Phase                    | Status         | Notes                   |
-| ------------------------ | -------------- | ----------------------- |
-| Phase 0: Setup           | 🟡 In Progress | Creating roadmap & docs |
-| Phase 1: Core            | ⚪ Not Started |                         |
-| Phase 2: Basic UI        | ⚪ Not Started |                         |
-| Phase 3: Clustering UI   | ⚪ Not Started |                         |
-| Phase 4: Export & Polish | ⚪ Not Started |                         |
-| Phase 5: Testing         | ⚪ Not Started |                         |
+| Phase                    | Status         | Notes                                        |
+| ------------------------ | -------------- | -------------------------------------------- |
+| Phase 0: Setup           | ✅ Complete    | Project structure, CMake, docs               |
+| Phase 1: Core            | ✅ Complete    | Scanner, Indexer, Clusterer, Database, dlib  |
+| Phase 2: Basic UI        | ✅ Complete    | Face grid, person list, pipeline integration |
+| Phase 3: Clustering UI   | 🟡 In Progress | Merge/split UI needed                        |
+| Phase 4: Export & Polish | ⚪ Not Started |                                              |
+| Phase 5: Testing         | ⚪ Not Started |                                              |
 
 ---
+
+_Last Updated: February 22, 2026_
 
 _Last Updated: February 22, 2026_

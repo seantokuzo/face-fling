@@ -176,3 +176,208 @@ Download and place in `resources/models/`:
 - Architecture: `docs/ARCHITECTURE.md`
 - Feature Specs: `docs/specs/`
 - macOS HIG: `.agents/skills/macos-design-guidelines/SKILL.md`
+
+---
+
+## C++ Primer for JavaScript/TypeScript Developers
+
+This section explains C++ concepts for developers coming from JavaScript/TypeScript.
+
+### Key Differences from JS/TS
+
+| Concept         | JavaScript/TypeScript               | C++                                |
+| --------------- | ----------------------------------- | ---------------------------------- |
+| Memory          | Garbage collected                   | Manual (but we use smart pointers) |
+| Types           | Runtime (TS: compile-time optional) | Compile-time, strict               |
+| Compilation     | Interpreted/JIT                     | Compiled to machine code           |
+| Execution       | Single-threaded + event loop        | Multi-threaded                     |
+| Package Manager | npm/yarn                            | CMake + system packages            |
+
+### Header Files (.h) vs Source Files (.cpp)
+
+**Why two files?** C++ separates _declaration_ (what exists) from _definition_ (how it works).
+
+```cpp
+// Scanner.h - DECLARATION (the "interface")
+class Scanner {
+public:
+    std::vector<std::string> scan(const std::string& path);  // Just signature
+};
+
+// Scanner.cpp - DEFINITION (the "implementation")
+std::vector<std::string> Scanner::scan(const std::string& path) {
+    // Actual code goes here
+}
+```
+
+**Think of it like:** `.h` = TypeScript interface, `.cpp` = implementation.
+
+### Memory Management
+
+**JavaScript:** Objects live until garbage collected.
+**C++:** You control when objects are created and destroyed.
+
+```cpp
+// Stack allocation (automatic cleanup when scope ends)
+Photo photo;  // Created here, destroyed at end of function
+
+// Heap allocation with smart pointers (like JS objects, but explicit)
+std::shared_ptr<Database> db = std::make_shared<Database>("path.db");
+// db is automatically deleted when no references remain (like JS!)
+
+std::unique_ptr<Scanner> scanner = std::make_unique<Scanner>();
+// Only ONE owner allowed - like a non-copyable object
+```
+
+**Rule:** We always use smart pointers (`shared_ptr`, `unique_ptr`) instead of raw `new`/`delete`.
+
+### Common Types
+
+```cpp
+// Strings
+std::string name = "John";           // Like: let name: string = "John"
+QString qname = "John";              // Qt's string (for UI)
+
+// Arrays/Lists
+std::vector<int> numbers = {1, 2, 3};  // Like: let numbers: number[] = [1, 2, 3]
+numbers.push_back(4);                   // Like: numbers.push(4)
+
+// Optional values (like T | undefined)
+std::optional<Photo> photo = get_photo(123);
+if (photo.has_value()) {               // Like: if (photo !== undefined)
+    use(photo.value());
+}
+
+// Integers
+int count = 42;                        // Like: let count: number = 42
+int64_t bigNumber = 9999999999LL;      // For large numbers (photo IDs, etc.)
+```
+
+### References and Pointers
+
+```cpp
+// Reference (&) - an alias to existing object (can't be null)
+void process(const std::string& path);  // Read-only reference (efficient, no copy)
+void modify(std::string& path);         // Can modify the original
+
+// Pointer (*) - address of object (can be null)
+Photo* photo = nullptr;                 // Like: let photo: Photo | null = null
+if (photo != nullptr) {
+    photo->name;                        // Arrow for pointer access
+}
+```
+
+**Rule:** Prefer `&` references. Use pointers only when null is valid.
+
+### The `const` Keyword
+
+```cpp
+const int MAX = 100;                    // Like: const MAX = 100 (can't change)
+
+void read_only(const std::string& s);   // Promise not to modify s
+
+const Photo& get_photo() const;         // Method doesn't modify the object
+```
+
+### Classes and Structs
+
+```cpp
+// struct = all public by default (use for simple data)
+struct Photo {
+    int64_t id;
+    std::string path;
+};
+
+// class = all private by default (use for objects with behavior)
+class Scanner {
+public:                                 // Anyone can access
+    void scan();
+
+private:                                // Only this class can access
+    bool m_cancelled;                   // m_ prefix = member variable
+};
+```
+
+### Namespaces
+
+```cpp
+namespace facefling {                   // Like: module facefling { ... }
+    class Scanner { };
+}
+
+facefling::Scanner scanner;             // Like: facefling.Scanner
+```
+
+### Lambda Functions
+
+```cpp
+// C++ lambdas are like JS arrow functions
+auto callback = [](int x) { return x * 2; };  // Like: const callback = (x) => x * 2
+
+// Capture variables from outer scope
+int multiplier = 3;
+auto fn = [multiplier](int x) { return x * multiplier; };
+// [&] = capture by reference, [=] = capture by copy, [this] = capture this
+```
+
+### Qt Signals and Slots (Event System)
+
+```cpp
+// Like addEventListener but type-safe
+connect(button, &QPushButton::clicked,    // When button emits "clicked"
+        this, &MainWindow::onButtonClick); // Call this method
+
+// Emitting signals (like dispatchEvent)
+emit progressChanged(50, 100);            // Notify listeners
+```
+
+### Build Process
+
+```
+Source Files (.cpp, .h)
+        ↓
+    [Compiler]  ← CMake tells compiler what to build
+        ↓
+  Object Files (.o)
+        ↓
+    [Linker]    ← Combines objects + libraries
+        ↓
+   Executable (FaceFling.app)
+```
+
+**CMake** is like `package.json` + build scripts combined. It:
+
+- Finds dependencies (Qt, dlib, SQLite)
+- Configures compiler flags
+- Generates platform-specific build files
+
+### Common Gotchas
+
+1. **Semicolons everywhere** - Every statement ends with `;`
+2. **No implicit type conversion** - `int` to `string` requires explicit conversion
+3. **Include order matters** - Headers must be included before use
+4. **Compile errors are verbose** - The first error is usually the real one
+5. **Segfault** - Accessing invalid memory (use smart pointers to avoid!)
+
+### Reading This Codebase
+
+```
+src/
+├── main.cpp              # Entry point - creates MainWindow and runs Qt app
+├── app/                  # UI layer (Qt widgets)
+│   ├── MainWindow.cpp    # Controller - connects UI to core engine
+│   ├── FaceGridWidget.cpp# Displays face thumbnails
+│   └── ...
+├── core/                 # Business logic (pure C++, no Qt)
+│   ├── Scanner.cpp       # Finds image files
+│   ├── Indexer.cpp       # Detects faces, generates embeddings
+│   └── Clusterer.cpp     # Groups similar faces
+├── services/             # External library wrappers
+│   ├── Database.cpp      # SQLite operations
+│   ├── FaceService.cpp   # dlib face detection
+│   └── ImageLoader.cpp   # Image loading
+└── models/               # Data structures (structs)
+    ├── Photo.h           # Photo metadata
+    ├── Face.h            # Detected face with embedding
+    └── Person.h          # User-assigned identity
+```

@@ -52,6 +52,10 @@ public:
     // Cancel current operation
     void cancel();
     bool is_cancelled() const;
+    
+    // Thumbnail settings
+    void set_thumbnail_dir(const std::string& dir);
+    void set_thumbnail_size(int size);
 
 private:
     class Impl;

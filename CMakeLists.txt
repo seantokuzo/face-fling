@@ -17,6 +17,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Gui
     Widgets
     Sql
+    Concurrent
 )
 
 # Auto-generate MOC, UIC, and RCC
@@ -39,6 +40,8 @@ set(SOURCES
     src/app/MainWindow.h
     src/app/FaceGridWidget.cpp
     src/app/FaceGridWidget.h
+    src/app/FaceThumbnailWidget.cpp
+    src/app/FaceThumbnailWidget.h
     src/app/PersonListWidget.cpp
     src/app/PersonListWidget.h
     src/app/ScanProgressDialog.cpp
@@ -91,6 +94,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Gui
     Qt6::Widgets
     Qt6::Sql
+    Qt6::Concurrent
     dlib::dlib
     SQLite::SQLite3
 )

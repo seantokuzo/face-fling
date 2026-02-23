@@ -1,6 +1,12 @@
-# Face-Fling 📸👤
+<p align="center">
+  <img src="resources/FaceFling_logo_1024.png" width="200" alt="Face-Fling Logo">
+</p>
 
-> Your family photos, finally findable.
+<h1 align="center">Face-Fling 📸👤</h1>
+
+<p align="center">
+  <em>Your family photos, finally findable.</em>
+</p>
 
 A native macOS application that scans your photo folders, detects faces, intelligently groups them, and lets you organize photos by the people in them — even when they've aged decades across your collection.
 

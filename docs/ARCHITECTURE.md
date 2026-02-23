@@ -62,15 +62,16 @@ This document describes the technical architecture of Face-Fling.
 
 **Components**:
 
-| Component            | Responsibility                                                |
-| -------------------- | ------------------------------------------------------------- |
-| `MainWindow`         | Main application window, menu bar, toolbar, layout management |
-| `FaceGridWidget`     | Display grid of face thumbnails, handle selection             |
-| `PersonListWidget`   | Sidebar showing list of identified persons                    |
-| `ScanProgressDialog` | Show progress during folder scanning                          |
-| `ExportDialog`       | Configure and execute photo export                            |
-| `SettingsDialog`     | Application preferences                                       |
-| `ClusterMergeDialog` | UI for merging face clusters                                  |
+| Component             | Responsibility                                                |
+| --------------------- | ------------------------------------------------------------- |
+| `MainWindow`          | Main application window, menu bar, toolbar, layout management |
+| `FaceGridWidget`      | Display grid of face thumbnails organized by cluster          |
+| `FaceThumbnailWidget` | Individual face thumbnail with selection and circular crop    |
+| `PersonListWidget`    | Sidebar showing persons and unidentified clusters             |
+| `ScanProgressDialog`  | Show progress during folder scanning and processing           |
+| `ExportDialog`        | Configure and execute photo export                            |
+| `SettingsDialog`      | Application preferences                                       |
+| `ClusterMergeDialog`  | UI for merging face clusters                                  |
 
 **Rules**:
 

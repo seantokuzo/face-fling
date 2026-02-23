@@ -16,19 +16,27 @@ if(GTest_FOUND)
     target_link_libraries(test_scanner GTest::gtest_main)
     gtest_discover_tests(test_scanner)
     
-    # Clustering tests
+    # Clustering tests (embedding distance only - no dlib required)
     add_executable(test_clustering
         test_clustering.cpp
-        ../src/core/Clusterer.cpp
-        ../src/services/Database.cpp
-        ../src/services/FaceService.cpp
     )
     target_include_directories(test_clustering PRIVATE ../src)
     target_link_libraries(test_clustering 
         GTest::gtest_main
-        SQLite::SQLite3
     )
     gtest_discover_tests(test_clustering)
+    
+    # Database tests
+    add_executable(test_database
+        test_database.cpp
+        ../src/services/Database.cpp
+    )
+    target_include_directories(test_database PRIVATE ../src)
+    target_link_libraries(test_database 
+        GTest::gtest_main
+        SQLite::SQLite3
+    )
+    gtest_discover_tests(test_database)
     
 else()
     message(STATUS "Google Test not found, tests will not be built")
