@@ -1,9 +1,6 @@
 <p align="center">
-  <img src="resources/FaceFling_logo_1024.png" width="200" alt="Face-Fling Logo">
+  <img src="resources/FaceFling_logo_1024.png" width="500" alt="Face-Fling Logo">
 </p>
-
-<h1 align="center">Face-Fling 📸👤</h1>
-
 <p align="center">
   <em>Your family photos, finally findable.</em>
 </p>
